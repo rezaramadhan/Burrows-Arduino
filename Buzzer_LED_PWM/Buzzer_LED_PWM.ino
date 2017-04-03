@@ -24,9 +24,10 @@
  * (cleft) 2005 D. Cuartielles for K3
  */
 
-int ledPin = 5;
-int buttonPin = 7;
-int speakerOut = 6;               
+#define LED_PIN 5
+#define BUZZER_PIN 6
+#define BUTTON_PIN 7
+             
 byte names[] = {'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C'};  
 int tones[] = {1915, 1700, 1519, 1432, 1275, 1136, 1014, 956};
 byte melody[] = "2d2a1f2c2d2a2d2c2f2d2a2c2d2a1f2c2d2a2a2g2p8p8p8p";
@@ -43,16 +44,16 @@ boolean buttonState = true;         // variable for reading the pushbutton statu
 int buttonRead = 0;
 
 void setup() {
- pinMode(ledPin, OUTPUT); 
+ pinMode(LED_PIN, OUTPUT); 
 
   // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
+  pinMode(BUTTON_PIN, INPUT);
   
   attachInterrupt(0, pin_ISR, CHANGE);
 }
 
 void pin_ISR() {
-  buttonState = digitalRead(buttonPin);
+  buttonState = digitalRead(BUTTON_PIN);
   if (buttonRead == HIGH) {
     buttonState = !buttonState;
     
@@ -61,24 +62,23 @@ void pin_ISR() {
 
 void loop() {
   if (buttonState == true) {
-    analogWrite(speakerOut, 0);     
+    analogWrite(BUZZER_PIN, 0);     
     for (count = 0; count < MAX_COUNT; count++) {
-      statePin = !statePin;
-      digitalWrite(ledPin, statePin);
+//      statePin = !statePin;
+//      digitalWrite(LED_PIN, statePin);
       for (count3 = 0; count3 <= (melody[count*2] - 48) * 30; count3++) {
         for (count2=0;count2<8;count2++) {
           if (names[count2] == melody[count*2 + 1]) {       
-            analogWrite(speakerOut,500);
+            analogWrite(BUZZER_PIN,500);
             delayMicroseconds(tones[count2]);
-            analogWrite(speakerOut, 0);
+            analogWrite(BUZZER_PIN, 0);
             delayMicroseconds(tones[count2]);
-          } 
+          }
           if (melody[count*2 + 1] == 'p') {
             // make a pause of a certain size
-            analogWrite(speakerOut, 0);
+            analogWrite(BUZZER_PIN, 0);
             delayMicroseconds(500);
           }
-
           if (buttonState == true)
             break;
         }
