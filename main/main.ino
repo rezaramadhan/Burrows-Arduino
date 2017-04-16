@@ -32,7 +32,8 @@ void setup() {
   lcd.clear();
   // Print a message to the LCD.
   lcd.print("Welc. to Burrows!");
-  
+  lcd.setCursor(0,1);
+  lcd.print("Score:");
   Serial.begin(9600);
   pinMode(A0,INPUT);
   pinMode(A1,INPUT);
@@ -89,7 +90,7 @@ void loop() {
 
   // Write Score to LCD after reading from serial communication
   if(Serial.available() > 0){
-    lcd.setCursor(0, 1);
+    lcd.setCursor(7, 1);
     lcd.print(Serial.readString());  
   }
 
@@ -97,6 +98,7 @@ void loop() {
   if (buttonRead == HIGH) {
     buttonState = !buttonState; 
   }
+  
 
   // read from LDR, send to unity
   int LDR1 = analogRead(A0);
