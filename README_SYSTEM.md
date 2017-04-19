@@ -83,7 +83,7 @@ It's not a good bye bby, definitely not.
 
 ## Installation
 ------
-1. Get Burrows.exe file && Burrows.apk file
+1. Get Burrows.exe file & Burrows.apk file
 2. Double click
 3. Have fun!  
 And done!
